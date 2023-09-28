@@ -1,0 +1,22 @@
+{
+  "projects": [
+    {
+      "img": "phantomwallet.png",
+      "title": "Phantom Wallet Webpage",
+      "description": "Simple webpage that showcases a pseudo application.",
+      "link": ""
+    },
+    {
+      "img": "stocks-bot.png",
+      "title": "Stocks Discord Bot",
+      "description": "A Discord bot that allows user to keep track of stock prices in real time.",
+      "link": "https://github.com/Fareen-Khan/StocksBot"
+    },
+    {
+      "img": "twitter-bot.png",
+      "title": "Web Scrapping Discord Bot",
+      "description": "Unique bot that returns COVID-19 statistics",
+      "link": "https://github.com/Fareen-Khan/Discord-Bot"
+    }
+  ]
+}
