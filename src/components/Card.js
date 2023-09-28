@@ -19,7 +19,7 @@ function Card({ img, title, description, link }) {
   return (
     <>
       <Link to={link}>
-        <div class="flex flex-col max-w-sm h-full bg-dark border border-zinc-800 rounded-lg relative hover:scale-110 transition-all">
+        <div class="flex flex-col max-w-xs h-full bg-dark border border-zinc-800 rounded-lg relative hover:scale-110 transition-all">
           <img
             class="rounded-t-lg"
             src={process.env.PUBLIC_URL + `/assets/projects/${img}`}
@@ -33,7 +33,7 @@ function Card({ img, title, description, link }) {
               {description}
             </p>
           </div>
-          <div className="absolute bottom-0 left-0 ml-2 mb-2">{iconImg}</div>
+          <div className="absolute bottom-0 left-0 ml-2 mb-2 hidden lg:flex">{iconImg}</div>
         </div>
       </Link>
     </>

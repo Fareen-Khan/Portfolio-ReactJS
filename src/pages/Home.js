@@ -7,7 +7,7 @@ function Home() {
   return (
     <>
       <motion.div
-        className="flex flex-col justify-center items-center h-full overflow-y-hidden"
+        className="flex flex-col justify-center items-center h-full overflow-y-auto px-4 pb-16 pt-4"
         initial={{ opacity: 0, scale: 0.5 }}
         animate={{ opacity: 1, scale: 1 }}
         transition={{ duration: 0.5 }}
