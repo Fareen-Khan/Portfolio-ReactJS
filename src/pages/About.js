@@ -13,8 +13,8 @@ function About() {
     >
       <img
         className="aspect-square h-48 md:h-64 lg:h-96 w-48 md:w-64 lg:w-96 object-cover rounded-full"
-        src={process.env.PUBLIC_URL + "/assets/DSC09432.png"}
-        alt="Profile Image"
+        src="/assets/profile-picture.webp"
+        alt="Profile Picutre"
       />
       <h1 className="text-secondary text-3xl md:text-5xl mt-4">
         Fareen Khan

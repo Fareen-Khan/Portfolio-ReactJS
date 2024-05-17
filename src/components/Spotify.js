@@ -73,14 +73,14 @@ function Spotify() {
 
   return (
     <div className="p-4 w-fit text-secondary hover:scale-110 transition-all italic" onClick={redirect}>
-      <h1 className="pb-2 text-left">{track.playing ? "Listening to:" : "Recently Played:"}</h1>
+      <h1 className="pb-2 text-left text-base">{track.playing ? "Listening to:" : "Recently Played:"}</h1>
       <div className="text-secondary flex items-center">
         <img
           className="inline-block rounded-md h-16"
           src={track.img}
           alt={track.title}
         />
-        <div className="px-4 text-xs text-left">
+        <div className="px-4 text-sm text-left">
           <p id="tracktitle">{track.title}</p>
           <p id="trackartist">by {track.artist}</p>
           <p id="trackalbum">on {track.album}</p>

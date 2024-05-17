@@ -1,6 +1,12 @@
 {
   "projects": [
     {
+      "img": "recipe-finder.png",
+      "title": "Recipe Finder Web App",
+      "description": "Simple web app to help users find recipes with what they have on hand.",
+      "link": "https://github.com/Fareen-Khan/recipe-finder-app"
+    },
+    {
       "img": "phantomwallet.png",
       "title": "Phantom Wallet Webpage",
       "description": "Simple webpage that showcases a pseudo application.",
