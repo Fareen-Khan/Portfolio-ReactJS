@@ -1,9 +1,23 @@
-import React from "react";
-import Projects from "./data/projectData.json";
+import React, { useEffect, useState } from "react";
+// import Projects from "./data/projectData.json";
 import Card from "../components/Card";
 import { motion } from "framer-motion";
 
 function ProjectList() {
+
+   const [projects, setProjects] = useState([]);
+
+		useEffect(() => {
+			// Replace with your GitHub raw URL
+			const url = "https://fareen-khan.github.io/projectsJSON/projectData.json";
+
+			fetch(url)
+				.then((response) => response.json())
+				.then((data) => setProjects(data.projects))
+				.catch((error) => console.error("Error fetching data: ", error));
+		}, []);
+
+
   return (
     <div className="flex h-screen w-full justify-center items-center">
       <motion.div
@@ -14,7 +28,7 @@ function ProjectList() {
       >
         <h1 className="text-secondary text-3xl md:text-5xl mt-10">Projects</h1>
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 md:gap-6 lg:gap-8 justify-items-center mt-16 mb-32 mx-8">
-          {Projects.projects.map((item) => (
+          {projects.map((item) => (
             <Card
               img={item.img}
               title={item.title}
