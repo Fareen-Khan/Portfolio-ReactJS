@@ -11,7 +11,6 @@ import IconList from "../components/IconList";
 pdfjs.GlobalWorkerOptions.workerSrc = `//unpkg.com/pdfjs-dist@${pdfjs.version}/build/pdf.worker.min.mjs`;
 
 function About() {
-	const [numPages, setNumPages] = React.useState(null);
 	const [showResume, setShowResume] = useState(false);
 	const resumeRef = useRef(null);
 	const mainBodyRef = useRef(null);
@@ -21,8 +20,8 @@ function About() {
 		navbarRef.current = document.getElementById("navbar"); // Assuming the id name is 'navbar'
 	}, []);
 
-	function onDocumentLoadSuccess({ numPages }) {
-		setNumPages(numPages);
+	function onDocumentLoadSuccess() {
+		console.log("PDF Loaded")
 	}
 
 	const handleWheel = (event) => {
@@ -132,7 +131,7 @@ function About() {
 						rel="noopener noreferrer"
 					>
 						<Document
-							file={`${process.env.PUBLIC_URL}/assets/Fareen_Resume.pdf`}
+							file = {process.env.REACT_APP_RESUME_PDF}
 							onLoadSuccess={onDocumentLoadSuccess}
 							className="flex flex-col items-center"
 						>

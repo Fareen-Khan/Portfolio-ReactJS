@@ -1,5 +1,4 @@
 import React, { useEffect, useState } from "react";
-// import Projects from "./data/projectData.json";
 import Card from "../components/Card";
 import { motion } from "framer-motion";
 
@@ -9,7 +8,7 @@ function ProjectList() {
 
 		useEffect(() => {
 			// Replace with your GitHub raw URL
-			const url = "https://fareen-khan.github.io/projectsJSON/projectData.json";
+      const url = process.env.REACT_APP_PROJECTS_JSON;
 
 			fetch(url)
 				.then((response) => response.json())
