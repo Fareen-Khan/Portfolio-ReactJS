@@ -6,6 +6,12 @@ import { Document, Page } from "react-pdf";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faChevronDown, faChevronUp } from "@fortawesome/free-solid-svg-icons";
 import IconList from "../components/IconList";
+import {
+  textVariants,
+  textLChildVariants,
+  textRChildVariants,
+	imageVariants,
+} from "../animations/animations";
 
 // TODO: MAKE MOBILE FRIENDLY
 pdfjs.GlobalWorkerOptions.workerSrc = `//unpkg.com/pdfjs-dist@${pdfjs.version}/build/pdf.worker.min.mjs`;
@@ -64,31 +70,35 @@ function About() {
 		<div ref={mainBodyRef}>
 			<motion.div
 				className="flex flex-col h-full items-center px-4 overflow-y-auto overscroll-none pb-16 pt-4"
-				initial={{ opacity: 0, scale: 0.5 }}
-				animate={{ opacity: 1, scale: 1 }}
-				transition={{ duration: 0.5 }}
+				initial="hidden"
+				animate="visible"
 			>
-				<img
-					className="aspect-square h-48 md:h-64 lg:h-96 w-48 md:w-64 lg:w-96 object-cover rounded-full"
-					src="/assets/profile-picture.webp"
-					alt="Profile Picutre"
+				<motion.img
+					className="aspect-square w-6/12 lg:w-1/5 object-cover rounded-full"
+					src="https://i.imgur.com/SBJHoNX.jpg"
+          alt="Profile Picutre"
+          variants={imageVariants}
 				/>
-				<h1 className="text-secondary text-3xl md:text-5xl mt-4">
+        <motion.h1
+          className="text-secondary text-3xl md:text-5xl mt-4"
+        variants={textVariants}>
 					Fareen Khan
-				</h1>
+				</motion.h1>
 				<br />
-				<div className="text-secondary text-base md:text-xl font-light w-full md:w-2/3 lg:w-1/2 text-left space-y-4">
-					<p>
+        <motion.div
+          className="text-secondary text-base md:text-xl font-light w-full md:w-2/3 lg:w-1/2 text-left space-y-4"
+        variants={textVariants}>
+					<motion.p variants={textLChildVariants}>
 						Hey! I'm Fareen, a third-year software engineering student at
 						Toronto Metropolitan University.
-					</p>
-					<p>
+					</motion.p>
+					<motion.p variants={textRChildVariants}>
 						I began coding in Python on a whim. I developed some simple
 						algorithms and eventually created a web scraping bot on Discord.
 						Since then, I've embarked on a journey to learn JavaScript, web
 						development, and software development.
-					</p>
-					<p className="flex">
+					</motion.p>
+					<motion.p variants={textLChildVariants} className="flex">
 						Check out some of my&nbsp;
 						<Link
 							className="flex cursor-pointer hover:scale-110 transition-all"
@@ -97,17 +107,17 @@ function About() {
 							{" "}
 							projects!😁
 						</Link>
-					</p>
+					</motion.p>
 					<br />
-					<div className="flex flex-col space-y-2 md:flex-row md:space-x-5">
+					<motion.div variants={textRChildVariants} className="flex flex-col space-y-2 md:flex-row md:space-x-5">
 						<p className="text-secondary">Languages</p>
 						<IconList dest="language" />
-					</div>
-					<div className="flex flex-col space-y-2 md:flex-row md:space-x-5">
+					</motion.div>
+					<motion.div variants={textLChildVariants} className="flex flex-col space-y-2 md:flex-row md:space-x-5">
 						<p className="text-secondary">Technologies</p>
 						<IconList dest="technologies" />
-					</div>
-				</div>
+					</motion.div>
+				</motion.div>
 
 				<div className="text-secondary text-base md:text-xl font-light w-full md:w-2/3 lg:w-1/2 text-center space-y-4 mt-10 opacity-25 ">
 					<p>Scroll down to see my resume</p>
@@ -131,7 +141,7 @@ function About() {
 						rel="noopener noreferrer"
 					>
 						<Document
-							file = {process.env.REACT_APP_RESUME_PDF}
+							file={process.env.REACT_APP_RESUME_PDF}
 							onLoadSuccess={onDocumentLoadSuccess}
 							className="flex flex-col items-center"
 						>

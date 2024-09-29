@@ -1,4 +1,6 @@
 import React, { useState, useEffect } from "react";
+import { motion } from 'framer-motion';
+import { spotifyVariants } from "../animations/animations";
 
 function Spotify() {
   const [track, setTrack] = useState({
@@ -10,15 +12,16 @@ function Spotify() {
     link: "",
   });
 
+  const [isLoaded, setIsLoaded] = useState(false);
+
   const fetchCurrentTrack = async () => {
     try {
       const musicResponse = await fetch(
-        "https://beta-api.stats.fm/api/v1/users/mcstar123/streams/current"
+        "https://api.stats.fm/api/v1/users/mcstar123/streams/current"
       ).then((response) => response.json());
-
-      if (musicResponse.status === 404) {
+      if (musicResponse.item.isPlaying === false) {
         const recentResponse = await fetch(
-          "https://beta-api.stats.fm/api/v1/users/mcstar123/streams/recent"
+          "https://api.stats.fm/api/v1/users/mcstar123/streams/recent"
         ).then((response) => response.json());
 
         const recentTrack = recentResponse.items[0].track;
@@ -36,6 +39,7 @@ function Spotify() {
           link,
           playing: false,
         });
+        setIsLoaded(true);
       } else {
         const currentTrack = musicResponse.item.track;
         const artist = currentTrack.artists[0].name;
@@ -53,6 +57,7 @@ function Spotify() {
           playing: true,
         });
       }
+      setIsLoaded(true);
     } catch (error) {
       console.error("Error fetching data:", error);
     }
@@ -72,22 +77,30 @@ function Spotify() {
   };
 
   return (
-    <div className="p-4 w-fit text-secondary hover:scale-110 transition-all italic" onClick={redirect}>
-      <h1 className="pb-2 text-left text-base">{track.playing ? "Listening to:" : "Recently Played:"}</h1>
-      <div className="text-secondary flex items-center">
-        <img
-          className="inline-block rounded-md h-16"
-          src={track.img}
-          alt={track.title}
-        />
-        <div className="px-4 text-sm text-left">
-          <p id="tracktitle">{track.title}</p>
-          <p id="trackartist">by {track.artist}</p>
-          <p id="trackalbum">on {track.album}</p>
-        </div>
-      </div>
-    </div>
-  );
+		<motion.div
+			className="p-4 w-fit text-secondary hover:scale-110 transition-all italic"
+			onClick={redirect}
+			initial="hidden"
+			animate={isLoaded ? "visible" : "hidden"} // Animate based on loading state
+			variants={spotifyVariants} // Apply variants
+		>
+			<h1 className="pb-2 text-left text-base">
+				{track.playing ? "Listening to:" : "Recently Played:"}
+			</h1>
+			<div className="text-secondary flex items-center">
+				<img
+					className="inline-block rounded-md h-28"
+					src={track.img}
+					alt={track.title}
+				/>
+				<div className="px-4 text-md text-left">
+					<p id="tracktitle">{track.title}</p>
+					<p id="trackartist">by {track.artist}</p>
+					<p id="trackalbum">on {track.album}</p>
+				</div>
+			</div>
+		</motion.div>
+	);
 }
 
 export default Spotify;
