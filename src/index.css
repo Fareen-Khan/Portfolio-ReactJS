@@ -74,6 +74,9 @@
   --sidebar-accent-foreground: oklch(0.205 0 0);
   --sidebar-border: oklch(0.922 0 0);
   --sidebar-ring: oklch(0.708 0 0);
+  --mouse-x: 0px;
+  --mouse-y: 0px;
+  --spot-size: 500px;
 }
 
 .dark {
@@ -116,5 +119,31 @@
   }
   body {
     @apply bg-background text-foreground;
+    @apply bg-zinc-950 text-gray-100;
   }
+}
+
+
+body::before {
+  content: "";
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  pointer-events: none;
+  z-index: 0;
+
+  /* dotted grid pattern */
+  background-image:
+    radial-gradient(circle, rgba(255, 255, 255, 0.5) 0.5px, transparent 1px);
+  background-size: 20px 20px;
+
+  /* mask to only show grid in a circle around the cursor */
+  mask-image: radial-gradient(circle var(--spot-size) at var(--mouse-x) var(--mouse-y),
+      white 0%,
+      transparent 60%);
+  -webkit-mask-image: radial-gradient(circle var(--spot-size) at var(--mouse-x) var(--mouse-y),
+      white 0%,
+      transparent 60%);
 }

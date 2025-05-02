@@ -1,7 +1,11 @@
 // src/components/Spotify.tsx
 import React, { useState, useEffect } from "react";
-import { Card, CardContent } from "@/components/ui/card";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
+import {
+  Alert,
+  AlertDescription,
+} from "@/components/ui/alert"
+
 
 interface Track {
   artist: string;
@@ -32,10 +36,10 @@ const Spotify: React.FC = () => {
       const dataTrack = musicResponse.item.isPlaying
         ? musicResponse.item.track
         : (
-            await fetch(
-              "https://api.stats.fm/api/v1/users/mcstar123/streams/recent"
-            ).then((r) => r.json())
-          ).items[0].track;
+          await fetch(
+            "https://api.stats.fm/api/v1/users/mcstar123/streams/recent"
+          ).then((r) => r.json())
+        ).items[0].track;
 
       setTrack({
         artist: dataTrack.artists[0].name,
@@ -64,22 +68,24 @@ const Spotify: React.FC = () => {
   if (!isLoaded) return null;
 
   return (
-    <Card
-      onClick={redirect}
-      className="w-full cursor-pointer text-gray-300 bg-transparent border-none shadow-none"
-    >
-      <CardContent className="p-5 mt-0 flex items-center space-x-4 hover:bg-gray-800 rounded-lg transition-all duration-300 ease-in-out">
-        <Avatar className="w-28 h-28 rounded-lg overflow-hidden">
-          <AvatarImage src={track.img} alt={track.title} />
-          <AvatarFallback>🎵</AvatarFallback>
-        </Avatar>
-        <div className="text-left">
-          <p className="font-medium  m-0">{track.title}</p>
-          <p className="text-sm m-0">by {track.artist}</p>
-          <p className="text-sm italic m-0">on {track.album}</p>
-        </div>
-      </CardContent>
-    </Card>
+    <>
+      <Alert onClick={redirect} className="mt-4  hover:bg-zinc-800 transition-all duration-300 ease-in-out">
+        <AlertDescription>
+          <div className="flex items-center space-x-4">
+            <Avatar className="w-28 h-28 rounded-lg overflow-hidden">
+              <AvatarImage src={track.img} alt={track.title} />
+              <AvatarFallback>🎵</AvatarFallback>
+            </Avatar>
+            <div className="text-left">
+              <p className="font-medium  m-0">{track.title}</p>
+              <p className="text-sm m-0">by {track.artist}</p>
+              <p className="text-sm italic m-0">on {track.album}</p>
+            </div>
+          </div>
+        </AlertDescription>
+      </Alert>
+    </>
+
   );
 };
 
