@@ -1,6 +1,7 @@
 
 import React from 'react'
 import Spotify from './components/Spotify'
+import  Projects  from './pages/Projects'
 function App() {
 
   return (
@@ -29,20 +30,9 @@ function App() {
           </p>
         </section>
         {/* Projects Section */}
-        <section id="projects" className="mb-16">
-          <h2 className="text-3xl font-semibold text-white mb-4">Projects</h2>
-          <ul className="space-y-6">
-            <li>
-              <h3 className="text-xl font-medium">Project One</h3>
-              <p className="text-gray-400">Short description of your first project.</p>
-            </li>
-            <li>
-              <h3 className="text-xl font-medium">Project Two</h3>
-              <p className="text-gray-400">Short description of your second project.</p>
-            </li>
-            {/* …add more projects here */}
-          </ul>
-        </section>
+        <Projects />
+
+        {/* Skills Section */}
 
         {/* Work / Experience Section */}
         <section id="work">
