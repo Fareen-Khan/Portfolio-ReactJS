@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { collection, getDocs, orderBy, query, Timestamp } from "firebase/firestore"
 import { db } from "../lib/firebase";
+import { Card, CardContent, CardTitle, CardHeader, CardDescription } from "@/components/ui/card";
 
 type Job = {
   id: string;
@@ -47,17 +48,28 @@ export default function Work() {
   }, []);
   return (
     <section id="work" className="mb-16">
-      <h2 className="text-3xl font-semibold text-white mb-4">Work</h2>
+      
+      {/* <h2 className="text-3xl font-semibold text-white mb-4">Work</h2> */}
       <ul className="space-y-6">
         {jobs.map((job) => (
           <li key={job.id}>
-            <h3 className="text-xl font-medium text-white">
-              {job.company} •{" "}
-              {/* Format your Date any way you like */}
-              {months[job.start_date.getMonth()]} {job.start_date.getFullYear()} –{" "}
-              {job.end_date ? months[job.end_date.getMonth()] + " " + job.end_date.getFullYear() : "Present"}
-            </h3>
-            <p className="text-gray-400">{job.description}</p>
+            <Card className="bg-transparent border-0 hover:bg-zinc-900 transition-all duration-300 ease-in-out" >
+                <CardContent className="text-2xl text-white">
+                <div className="grid grid-cols-[auto_1fr] gap-5"> 
+                  <div className="text-sm text-gray-400">
+                    {months[job.start_date.getMonth()]} {job.start_date.getFullYear()} –{" "}
+                    {job.end_date ? months[job.end_date.getMonth()] + " " + job.end_date.getFullYear() : "Present"}
+                  </div>
+                  <div className="text-sm text-gray-400 "> 
+                    <div className="font-medium text-gray-300 text-base">{job.role} · {job.company}</div>
+                    <div>{job.description}</div>
+                  </div>
+                </div>
+
+                </CardContent>
+
+
+            </Card>
           </li>
         ))}
       </ul>

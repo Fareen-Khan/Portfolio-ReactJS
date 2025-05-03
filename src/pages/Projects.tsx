@@ -1,6 +1,9 @@
 import React, { useEffect, useState } from "react";
 import { collection, getDocs } from "firebase/firestore"
 import { db } from "../lib/firebase";
+import { Card, CardContent, CardTitle, CardHeader, CardDescription } from "@/components/ui/card";
+import { ArrowUpRight } from "lucide-react";
+
 
 type Project = {
   id: string;
@@ -29,19 +32,35 @@ export default function Projects() {
 
   return (
     <section id="projects" className="mb-16">
-      <h2 className="text-3xl font-semibold text-white mb-4">Projects</h2>
+      {/* <h2 className="text-3xl font-semibold text-white mb-4">Projects</h2> */}
       <ul className="space-y-6">
         {items.map((p) => (
           <li key={p.id}>
-            <a
-              href={p.url}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="block hover:text-white"
-            >
-              <h3 className="text-xl font-medium text-white">{p.title}</h3>
-              <p className="text-gray-400">{p.description}</p>
-            </a>
+            <Card className="bg-transparent border-0 hover:bg-zinc-900 transition-all duration-300 ease-in-out" >
+              <CardContent className="text-2xl text-white">
+                <div className="grid grid-cols-[auto_1fr] gap-5 items-baseline">
+                  <div className="text-sm text-gray-400">
+                    Image Here
+                  </div>
+                  <div className="text-sm text-gray-400 ">
+                    <div className="font-medium text-gray-300 text-base flex flex-row space-x-2 items-end">
+                      <p>{p.title}</p>
+                      {p.url &&
+                        <a
+                          href={p.url}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          className="block hover:text-white">
+                          <ArrowUpRight className="w-4 h-4" />
+                        </a>
+                      }
+                    </div>
+                    <div>{p.description}</div>
+                  </div>
+                </div>
+
+                </CardContent>
+            </Card>
           </li>
         ))}
       </ul>

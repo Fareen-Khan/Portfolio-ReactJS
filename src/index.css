@@ -124,6 +124,17 @@
 }
 
 
+@layer utilities {
+  .no-scrollbar::-webkit-scrollbar {
+    display: none;
+  }
+
+  .no-scrollbar {
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+  }
+}
+
 body::before {
   content: "";
   position: fixed;
@@ -132,7 +143,7 @@ body::before {
   width: 100vw;
   height: 100vh;
   pointer-events: none;
-  z-index: 0;
+  z-index: -1;
 
   /* dotted grid pattern */
   background-image:

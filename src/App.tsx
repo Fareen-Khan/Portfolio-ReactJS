@@ -10,39 +10,38 @@ function App() {
   return (
     <>
       <MouseFollower />
-      <div className="flex h-screen ">
 
-        {/* ─── Left Column ─────────────────────────────────────── */}
-        <aside className="w-1/3 p-8 border-r border-gray-700 flex flex-col h-screen">
-          <h1 className="text-5xl font-bold text-white">Fareen Khan</h1>
-          <p className="mt-2 text-2xl text-gray-400">Software Engineer</p>
+      {/* full-screen flex, center its child horizontally */}
+      <div className="h-screen flex justify-center">
+        {/* this inner flex is half the viewport width (1/2), so gutters are each 1/4 */}
+        <div className="flex w-7/12 ">
 
-          {/* Spacer grows, pushing this down */}
-          <div className="mt-auto">
-            <Spotify />
-          </div>
-        </aside>
+          {/* ─── Left Column ───────────────────────────── */}
+          <aside className="w-2/3 p-8 border-r border-gray-800 flex flex-col">
+            <h1 className="text-5xl font-bold text-white">Fareen Khan</h1>
+            <p className="mt-2 text-2xl text-gray-400">
+              Software Engineer
+            </p>
+            <div className="mt-auto">
+              <Spotify />
+            </div>
+          </aside>
 
-        {/* ─── Right Column (scrollable) ───────────────────────── */}
-        <main className="w-2/3 p-8 overflow-y-auto">
-          {/* Bio Section */}
-          <section id="bio" className="mb-16">
-            <p className="text-gray-400">
+          {/* ─── Right Column ──────────────────────────── */}
+          <main className="w-2/3 p-8 overflow-y-auto overflow-hidden no-scrollbar">
+            {/* Optional Bio Section */}
+            <section id="bio" className="mb-16 text-gray-400">
               I'm a software engineer with a passion for design and development.
               I am currently working on projects and getting my cloud certifications.
               I have a strong background in web development, with experience in
-              building responsive and user-friendly web and mobile applications.
-            </p>
-          </section>
-          {/* Projects Section */}
-          <Projects />
+              building responsive and user-friendly applications.
+            </section>
 
-          {/* Skills Section */}
+            <Work />
+            <Projects />
+          </main>
 
-          {/* Work / Experience Section */}
-          <Work />
-
-        </main>
+        </div>
       </div>
     </>
   )
