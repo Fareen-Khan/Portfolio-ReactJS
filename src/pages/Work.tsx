@@ -54,8 +54,8 @@ export default function Work() {
         {jobs.map((job) => (
           <li key={job.id}>
             <Card className="bg-transparent border-0 hover:bg-zinc-900 transition-all duration-300 ease-in-out" >
-                <CardContent className="text-2xl text-white">
-                <div className="grid grid-cols-[auto_1fr] gap-5"> 
+                <CardContent >
+                <div className="grid grid-cols-[auto_1fr] gap-5 items-baseline"> 
                   <div className="text-sm text-gray-400">
                     {months[job.start_date.getMonth()]} {job.start_date.getFullYear()} –{" "}
                     {job.end_date ? months[job.end_date.getMonth()] + " " + job.end_date.getFullYear() : "Present"}

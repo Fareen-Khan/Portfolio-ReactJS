@@ -1,50 +1,54 @@
+// src/App.tsx
+import React from "react"
+import MouseFollower from "./components/MouseFollower"
+import Spotify from "./components/Spotify"
+import Work from "./pages/Work"
+import Projects from "./pages/Projects"
+import { Card, CardContent } from "./components/ui/card"
 
-import React from 'react'
-
-import Spotify from './components/Spotify'
-import Projects from './pages/Projects'
-import Work from './pages/Work'
-import MouseFollower from './components/MouseFollower'
-function App() {
-
+export default function App() {
   return (
     <>
       <MouseFollower />
 
-      {/* full-screen flex, center its child horizontally */}
-      <div className="h-screen flex justify-center">
-        {/* this inner flex is half the viewport width (1/2), so gutters are each 1/4 */}
-        <div className="flex w-7/12 ">
+      {/* min-height so footer/gutters can grow past 100vh */}
+      <div className="min-h-scree text-gray-300">
+        {/* center everything in a container */}
+        <div className="container mx-auto flex">
 
-          {/* ─── Left Column ───────────────────────────── */}
-          <aside className="w-2/3 p-8 border-r border-gray-800 flex flex-col">
+          {/* ─── Sidebar ───────────────────────────── */}
+          <aside className="w-1/3 p-8  sticky top-0 self-start flex flex-col h-screen">
             <h1 className="text-5xl font-bold text-white">Fareen Khan</h1>
             <p className="mt-2 text-2xl text-gray-400">
               Software Engineer
             </p>
-            <div className="mt-auto">
+            <div className="mt-auto pt-8">
               <Spotify />
             </div>
           </aside>
 
-          {/* ─── Right Column ──────────────────────────── */}
-          <main className="w-2/3 p-8 overflow-y-auto overflow-hidden no-scrollbar">
-            {/* Optional Bio Section */}
-            <section id="bio" className="mb-16 text-gray-400">
-              I'm a software engineer with a passion for design and development.
-              I am currently working on projects and getting my cloud certifications.
-              I have a strong background in web development, with experience in
-              building responsive and user-friendly applications.
+          {/* ─── Main Content ─────────────────────── */}
+          <main className="flex-1 p-8 space-y-16">
+            {/* Bio Section */}
+            <section id="bio" className="text-gray-400 space-y-4">
+              <Card className="bg-transparent border-0 text-gray-400">
+                <CardContent>
+                  <p>
+                    I'm a software engineer with a passion for design and development. I am
+                    currently working on projects and getting my cloud certifications. I have
+                    a strong background in web development, with experience in building responsive
+                    and user-friendly applications.
+                  </p>
+                </CardContent>
+              </Card>
             </section>
 
+            {/* Work & Projects */}
             <Work />
             <Projects />
           </main>
-
         </div>
       </div>
     </>
   )
 }
-
-export default App

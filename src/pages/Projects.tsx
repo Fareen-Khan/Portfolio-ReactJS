@@ -37,7 +37,7 @@ export default function Projects() {
         {items.map((p) => (
           <li key={p.id}>
             <Card className="bg-transparent border-0 hover:bg-zinc-900 transition-all duration-300 ease-in-out" >
-              <CardContent className="text-2xl text-white">
+              <CardContent>
                 <div className="grid grid-cols-[auto_1fr] gap-5 items-baseline">
                   <div className="text-sm text-gray-400">
                     Image Here
