@@ -1,7 +1,8 @@
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import { collection, getDocs, orderBy, query, Timestamp } from "firebase/firestore"
 import { db } from "../lib/firebase";
-import { Card, CardContent, CardTitle, CardHeader, CardDescription } from "@/components/ui/card";
+import { Card, CardContent } from "@/components/ui/card";
+import { Badge } from "@/components/ui/badge";
 
 type Job = {
   id: string;
@@ -10,6 +11,7 @@ type Job = {
   start_date: Date;    // store your dates as ISO strings in Firestore
   end_date?: Date;
   description: string;
+  languages?: string[];
 };
 
 const months = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
@@ -28,6 +30,7 @@ export default function Work() {
           start_date: Timestamp;
           end_date?: Timestamp;
           description: string;
+          languages?: string[]; 
         };
 
         return {
@@ -37,6 +40,7 @@ export default function Work() {
           start_date: data.start_date.toDate(),
           end_date: data.end_date ? data.end_date.toDate() : undefined,
           description: data.description,
+          languages: data.languages,
         };
       });
 
@@ -48,8 +52,6 @@ export default function Work() {
   }, []);
   return (
     <section id="work" className="mb-16">
-      
-      {/* <h2 className="text-3xl font-semibold text-white mb-4">Work</h2> */}
       <ul className="space-y-6">
         {jobs.map((job) => (
           <li key={job.id}>
@@ -63,11 +65,24 @@ export default function Work() {
                   <div className="text-sm text-gray-400 "> 
                     <div className="font-medium text-gray-300 text-base">{job.role} · {job.company}</div>
                     <div>{job.description}</div>
+                    <div className="space-x-2">
+                      {job.languages && (
+                        <div className="flex flex-wrap gap-2">
+                          {job.languages.map((lang) => (
+                            <Badge
+                              key={lang}
+                              className="bg-zinc-800 text-gray-300 px-2 py-1 rounded-full mt-2"
+                            >
+                              {lang}
+                            </Badge>
+                          ))} 
+                          </div>
+                      )}
+
+                    </div>
                   </div>
                 </div>
-
                 </CardContent>
-
 
             </Card>
           </li>
