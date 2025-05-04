@@ -59,7 +59,7 @@ export default function Work() {
       <ul className="space-y-6">
         {jobs.map((job) => (
           <li key={job.id}>
-            <Card className="bg-transparent border-0 hover:bg-zinc-900 transition-all duration-300 ease-in-out">
+            <Card className="bg-transparent border-0 hover:backdrop-blur-xs hover:backdrop-opacity-75 hover:ring-gray-800 hover:ring-[0.25px] hover:ring-inset transition-all duration-300 ease-in-out">
               <CardContent>
                 <div className="grid grid-cols-1 items-baseline gap-5 lg:grid-cols-[auto_1fr]">
                   <div className="lg:text-left text-gray-400 text-base sm:text-lg lg:text-sm">
@@ -81,7 +81,7 @@ export default function Work() {
                         {job.languages.map((lang) => (
                           <Badge
                             key={lang}
-                            className="bg-zinc-800 text-gray-300 px-2 py-1 text-sm sm:text-base lg:text-sm rounded-full"
+                            className="bg-zinc-800 text-gray-300 px-3 py-1 text-sm sm:text-base lg:text-sm rounded-full"
                           >
                             {lang}
                           </Badge>

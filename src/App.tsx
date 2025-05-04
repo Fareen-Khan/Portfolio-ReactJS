@@ -22,13 +22,13 @@ export default function App() {
             </p>
             <div className="flex flex-row space-x-2 mt-4">
               <Github
-                className="w-8 h-8 p-1 rounded-lg hover:bg-zinc-800"
+                className="w-8 h-8 p-1 rounded-lg text-gray-400 hover:bg-zinc-800"
                 onClick={() =>
                   window.open("https://github.com/fareen-khan")
                 }
               />
               <Linkedin
-                className="w-8 h-8 p-1 rounded-lg hover:bg-zinc-800"
+                className="w-8 h-8 p-1 rounded-lg text-gray-400 hover:bg-zinc-800"
                 onClick={() =>
                   window.open("https://www.linkedin.com/in/fareenkhan/")
                 }
@@ -43,7 +43,7 @@ export default function App() {
           <main className="w-full md:flex-1 p-8 space-y-16 md:border-l md:border-gray-800">
             <section id="bio" className="text-gray-400 space-y-4">
               <Card className="bg-transparent border-0 text-gray-400">
-                <CardContent className="space-y-4">
+                <CardContent className="space-y-4 hover:backdrop-blur-xs hover:backdrop-opacity-75">
                   <p>
                     I am a Software Engineer passionate about building
                     user-centric applications. My favorite work lies at the

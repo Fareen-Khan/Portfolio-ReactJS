@@ -1,6 +1,6 @@
 // src/pages/Projects.tsx
 import { useEffect, useState } from "react";
-import { collection, getDocs } from "firebase/firestore";
+import { collection, getDocs, query, orderBy } from "firebase/firestore";
 import { db } from "../lib/firebase";
 import { Card, CardContent } from "@/components/ui/card";
 import { ArrowUpRight } from "lucide-react";
@@ -13,6 +13,7 @@ type Project = {
   url: string;
   image_url?: string;
   languages?: string[];
+  created_at?: Date;
 };
 
 export default function Projects() {
@@ -20,7 +21,11 @@ export default function Projects() {
 
   useEffect(() => {
     const fetchProjects = async () => {
-      const snap = await getDocs(collection(db, "portfolio"));
+      const q = query(
+        collection(db, "portfolio"),
+        orderBy("created_at", "desc")
+      );
+      const snap = await getDocs(q);
       setItems(snap.docs.map((d) => ({ id: d.id, ...(d.data() as any) })));
     };
     fetchProjects();
@@ -31,15 +36,15 @@ export default function Projects() {
       <ul className="space-y-6">
         {items.map((p) => (
           <li key={p.id}>
-            <Card className="bg-transparent border-0 hover:bg-zinc-900 transition-all duration-300 ease-in-out">
+            <Card className="bg-transparent border-0 hover:backdrop-blur-xs hover:backdrop-opacity-75 hover:ring-gray-800 hover:ring-[0.25px] hover:ring-inset transition-all duration-300 ease-in-out">
               <CardContent>
-                <div className="grid grid-cols-1 items-center gap-5 lg:grid-cols-[auto_1fr]">
+                <div className="grid grid-cols-1 gap-5 lg:grid-cols-[auto_1fr]">
                   <img
                     src={p.image_url}
                     alt=""
                     className="order-2 lg:order-1 w-full h-auto lg:w-32 lg:h-32 rounded-lg object-cover"
                   />
-                  <div className="order-1 lg:order-2 text-gray-400">
+                  <div className="order-1 lg:order-2 text-gray-400 ">
                     <div className="flex items-end space-x-2">
                       <p className="font-medium text-white text-lg sm:text-xl lg:text-base">
                         {p.title}
@@ -62,7 +67,7 @@ export default function Projects() {
                         {p.languages.map((lang) => (
                           <Badge
                             key={lang}
-                            className="bg-zinc-800 text-gray-300 px-2 py-1 text-sm sm:text-base lg:text-sm rounded-full"
+                            className="bg-zinc-800 text-gray-300 px-3 py-1 text-sm sm:text-base lg:text-sm rounded-full"
                           >
                             {lang}
                           </Badge>

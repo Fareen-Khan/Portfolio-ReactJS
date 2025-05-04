@@ -53,7 +53,7 @@ const Spotify: React.FC = () => {
   return (
     <Alert
       onClick={() => window.open(track.link, "_blank")}
-      className="mt-4 hover:bg-zinc-800 transition-colors duration-200"
+      className="bg-transparent border-0 mt-4 hover:backdrop-blur-xs hover:backdrop-opacity-75 hover:ring-[0.25px] hover:cursor-pointer hover:ring-inset hover:ring-gray-800 transition-colors duration-200"
     >
       <AlertDescription>
         <div className="flex items-center space-x-4">
@@ -64,7 +64,7 @@ const Spotify: React.FC = () => {
           <div className="text-left text-gray-300">
             <p className="font-medium text-base">{track.title}</p>
             <p className="text-sm">by {track.artist}</p>
-            <p className="text-sm italic">on {track.album}</p>
+            <p className="text-sm italic line-clamp-1">on {track.album}</p>
           </div>
         </div>
       </AlertDescription>
