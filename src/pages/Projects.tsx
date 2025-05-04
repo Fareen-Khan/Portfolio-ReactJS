@@ -1,11 +1,10 @@
+// src/pages/Projects.tsx
 import { useEffect, useState } from "react";
-import { collection, getDocs } from "firebase/firestore"
+import { collection, getDocs } from "firebase/firestore";
 import { db } from "../lib/firebase";
-import { Card, CardContent} from "@/components/ui/card";
+import { Card, CardContent } from "@/components/ui/card";
 import { ArrowUpRight } from "lucide-react";
 import { Badge } from "@/components/ui/badge";
-
-
 
 type Project = {
   id: string;
@@ -17,20 +16,14 @@ type Project = {
 };
 
 export default function Projects() {
-  const [items, setItems] = useState<(Project & { id: string })[]>([]);
+  const [items, setItems] = useState<Project[]>([]);
 
   useEffect(() => {
     const fetchProjects = async () => {
-      const querySnapshot = await getDocs(collection(db, "portfolio"));
-      const projects = querySnapshot.docs.map((doc) => ({
-        id: doc.id,
-        ...doc.data() as Omit<Project, "id">,
-      }));
-      console.log("Loaded projects:", projects);
-      setItems(projects);
+      const snap = await getDocs(collection(db, "portfolio"));
+      setItems(snap.docs.map((d) => ({ id: d.id, ...(d.data() as any) })));
     };
     fetchProjects();
-
   }, []);
 
   return (
@@ -38,43 +31,47 @@ export default function Projects() {
       <ul className="space-y-6">
         {items.map((p) => (
           <li key={p.id}>
-            <Card className="bg-transparent border-0 hover:bg-zinc-900 transition-all duration-300 ease-in-out" >
+            <Card className="bg-transparent border-0 hover:bg-zinc-900 transition-all duration-300 ease-in-out">
               <CardContent>
-                <div className="grid grid-cols-[auto_1fr] gap-5 items-center">
-                  <img src={p.image_url} alt="" className="w-32 h-32 rounded-lg object-cover" /> 
-                  <div className="text-sm text-gray-400 ">
-                    <div className="font-medium text-gray-300 text-base flex flex-row space-x-2 items-end">
-                      <p>{p.title}</p>
-                      {p.url &&
+                <div className="grid grid-cols-1 items-center gap-5 lg:grid-cols-[auto_1fr]">
+                  <img
+                    src={p.image_url}
+                    alt=""
+                    className="order-2 lg:order-1 w-full h-auto lg:w-32 lg:h-32 rounded-lg object-cover"
+                  />
+                  <div className="order-1 lg:order-2 text-gray-400">
+                    <div className="flex items-end space-x-2">
+                      <p className="font-medium text-white text-lg sm:text-xl lg:text-base">
+                        {p.title}
+                      </p>
+                      {p.url && (
                         <a
                           href={p.url}
                           target="_blank"
                           rel="noopener noreferrer"
-                          className="block hover:text-white">
-                          <ArrowUpRight className="w-4 h-4" />
+                        >
+                          <ArrowUpRight className="w-4 h-4 text-gray-400 hover:text-white" />
                         </a>
-                      }
-                    </div>
-                    <div>{p.description}</div>
-                    <div className="space-x-2">
-                      {p.languages && (
-                        <div className="flex flex-wrap gap-2">
-                          {p.languages.map((lang) => (
-                            <Badge
-                              key={lang}
-                              className="bg-zinc-800 text-gray-300 px-2 py-1 rounded-full mt-2"
-                            >
-                              {lang}
-                            </Badge>
-                          ))}
-                        </div>
                       )}
-
                     </div>
+                    <p className="mt-1 text-base sm:text-lg lg:text-sm">
+                      {p.description}
+                    </p>
+                    {p.languages && (
+                      <div className="flex flex-wrap gap-2 mt-2">
+                        {p.languages.map((lang) => (
+                          <Badge
+                            key={lang}
+                            className="bg-zinc-800 text-gray-300 px-2 py-1 text-sm sm:text-base lg:text-sm rounded-full"
+                          >
+                            {lang}
+                          </Badge>
+                        ))}
+                      </div>
+                    )}
                   </div>
                 </div>
-
-                </CardContent>
+              </CardContent>
             </Card>
           </li>
         ))}

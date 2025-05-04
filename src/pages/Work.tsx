@@ -1,5 +1,11 @@
+// src/pages/Work.tsx
 import { useEffect, useState } from "react";
-import { collection, getDocs, orderBy, query, Timestamp } from "firebase/firestore"
+import {
+  collection,
+  getDocs,
+  orderBy,
+  query,
+} from "firebase/firestore";
 import { db } from "../lib/firebase";
 import { Card, CardContent } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
@@ -8,82 +14,83 @@ type Job = {
   id: string;
   company: string;
   role: string;
-  start_date: Date;    // store your dates as ISO strings in Firestore
+  start_date: Date;
   end_date?: Date;
   description: string;
   languages?: string[];
 };
 
-const months = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
+const months = [
+  "Jan", "Feb", "Mar", "Apr", "May", "Jun",
+  "Jul", "Aug", "Sep", "Oct", "Nov", "Dec",
+];
+
 export default function Work() {
-  const [jobs, setJobs] = useState<(Job & { id: string })[]>([]);
+  const [jobs, setJobs] = useState<Job[]>([]);
 
   useEffect(() => {
     const fetchWork = async () => {
-      const q = query(collection(db, "work"), orderBy("start_date", "desc"));
-      const snapshot = await getDocs(q);
+      const q = query(
+        collection(db, "work"),
+        orderBy("start_date", "desc")
+      );
+      const snap = await getDocs(q);
 
-      const work: Job[] = snapshot.docs.map((doc) => {
-        const data = doc.data() as {
-          company: string;
-          role: string;
-          start_date: Timestamp;
-          end_date?: Timestamp;
-          description: string;
-          languages?: string[]; 
-        };
-
-        return {
-          id: doc.id,
-          company: data.company,
-          role: data.role,
-          start_date: data.start_date.toDate(),
-          end_date: data.end_date ? data.end_date.toDate() : undefined,
-          description: data.description,
-          languages: data.languages,
-        };
-      });
-
-      console.log("Loaded work:", work);
-      setJobs(work);
+      setJobs(
+        snap.docs.map((d) => {
+          const data = d.data() as any;
+          return {
+            id: d.id,
+            company: data.company,
+            role: data.role,
+            start_date: data.start_date.toDate(),
+            end_date: data.end_date?.toDate(),
+            description: data.description,
+            languages: data.languages,
+          };
+        })
+      );
     };
-
     fetchWork();
   }, []);
+
   return (
     <section id="work" className="mb-16">
       <ul className="space-y-6">
         {jobs.map((job) => (
           <li key={job.id}>
-            <Card className="bg-transparent border-0 hover:bg-zinc-900 transition-all duration-300 ease-in-out" >
-                <CardContent >
-                <div className="grid grid-cols-[auto_1fr] gap-5 items-baseline"> 
-                  <div className="text-sm text-gray-400">
-                    {months[job.start_date.getMonth()]} {job.start_date.getFullYear()} –{" "}
-                    {job.end_date ? months[job.end_date.getMonth()] + " " + job.end_date.getFullYear() : "Present"}
+            <Card className="bg-transparent border-0 hover:bg-zinc-900 transition-all duration-300 ease-in-out">
+              <CardContent>
+                <div className="grid grid-cols-1 items-baseline gap-5 lg:grid-cols-[auto_1fr]">
+                  <div className="lg:text-left text-gray-400 text-base sm:text-lg lg:text-sm">
+                    {months[job.start_date.getMonth()]}{" "}
+                    {job.start_date.getFullYear()} –{" "}
+                    {job.end_date
+                      ? `${months[job.end_date.getMonth()]} ${job.end_date.getFullYear()}`
+                      : "Present"}
                   </div>
-                  <div className="text-sm text-gray-400 "> 
-                    <div className="font-medium text-gray-300 text-base">{job.role} · {job.company}</div>
-                    <div>{job.description}</div>
-                    <div className="space-x-2">
-                      {job.languages && (
-                        <div className="flex flex-wrap gap-2">
-                          {job.languages.map((lang) => (
-                            <Badge
-                              key={lang}
-                              className="bg-zinc-800 text-gray-300 px-2 py-1 rounded-full mt-2"
-                            >
-                              {lang}
-                            </Badge>
-                          ))} 
-                          </div>
-                      )}
-
-                    </div>
+                  <div className="space-y-2">
+                    <p className="font-medium text-white text-lg sm:text-xl lg:text-base">
+                      {job.role} · {job.company}
+                    </p>
+                    <p className="text-base sm:text-lg lg:text-sm text-gray-300">
+                      {job.description}
+                    </p>
+                    {job.languages && (
+                      <div className="flex flex-wrap gap-2 mt-2">
+                        {job.languages.map((lang) => (
+                          <Badge
+                            key={lang}
+                            className="bg-zinc-800 text-gray-300 px-2 py-1 text-sm sm:text-base lg:text-sm rounded-full"
+                          >
+                            {lang}
+                          </Badge>
+                        ))}
+                      </div>
+                    )}
                   </div>
                 </div>
-                </CardContent>
-
+              </CardContent>
             </Card>
           </li>
         ))}

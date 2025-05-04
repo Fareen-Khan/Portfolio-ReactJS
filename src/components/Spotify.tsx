@@ -1,11 +1,7 @@
 // src/components/Spotify.tsx
 import React, { useState, useEffect } from "react";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
-import {
-  Alert,
-  AlertDescription,
-} from "@/components/ui/alert"
-
+import { Alert, AlertDescription } from "@/components/ui/alert";
 
 interface Track {
   artist: string;
@@ -17,14 +13,7 @@ interface Track {
 }
 
 const Spotify: React.FC = () => {
-  const [track, setTrack] = useState<Track>({
-    artist: "",
-    title: "",
-    album: "",
-    img: "",
-    playing: false,
-    link: "",
-  });
+  const [track, setTrack] = useState<Track>({ artist: "", title: "", album: "", img: "", playing: false, link: "" });
   const [isLoaded, setIsLoaded] = useState(false);
 
   const fetchCurrentTrack = async () => {
@@ -35,11 +24,9 @@ const Spotify: React.FC = () => {
 
       const dataTrack = musicResponse.item.isPlaying
         ? musicResponse.item.track
-        : (
-          await fetch(
-            "https://api.stats.fm/api/v1/users/mcstar123/streams/recent"
-          ).then((r) => r.json())
-        ).items[0].track;
+        : (await fetch(
+          "https://api.stats.fm/api/v1/users/mcstar123/streams/recent"
+        ).then((r) => r.json())).items[0].track;
 
       setTrack({
         artist: dataTrack.artists[0].name,
@@ -57,36 +44,32 @@ const Spotify: React.FC = () => {
 
   useEffect(() => {
     fetchCurrentTrack();
-    const intervalId = setInterval(fetchCurrentTrack, 5000);
-    return () => clearInterval(intervalId);
+    const id = setInterval(fetchCurrentTrack, 5000);
+    return () => clearInterval(id);
   }, []);
-
-  const redirect = () => {
-    if (track.link) window.open(track.link, "_blank");
-  };
 
   if (!isLoaded) return null;
 
   return (
-    <>
-      <Alert onClick={redirect} className="mt-4  hover:bg-zinc-800 transition-all duration-300 ease-in-out">
-        <AlertDescription>
-          <div className="flex items-center space-x-4">
-            <Avatar className="w-28 h-28 rounded-lg overflow-hidden">
-              <AvatarImage src={track.img} alt={track.title} />
-              <AvatarFallback>🎵</AvatarFallback>
-            </Avatar>
-            <div className="text-left">
-              <p className="font-medium  m-0">{track.title}</p>
-              <p className="text-sm m-0">by {track.artist}</p>
-              <p className="text-sm italic m-0">on {track.album}</p>
-            </div>
+    <Alert
+      onClick={() => window.open(track.link, "_blank")}
+      className="mt-4 hover:bg-zinc-800 transition-colors duration-200"
+    >
+      <AlertDescription>
+        <div className="flex items-center space-x-4">
+          <Avatar className="w-20 h-20 rounded-lg overflow-hidden">
+            <AvatarImage src={track.img} alt={track.title} />
+            <AvatarFallback>🎵</AvatarFallback>
+          </Avatar>
+          <div className="text-left text-gray-300">
+            <p className="font-medium text-base">{track.title}</p>
+            <p className="text-sm">by {track.artist}</p>
+            <p className="text-sm italic">on {track.album}</p>
           </div>
-        </AlertDescription>
-      </Alert>
-    </>
-
+        </div>
+      </AlertDescription>
+    </Alert>
   );
 };
 
-export default Spotify
+export default Spotify;
