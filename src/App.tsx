@@ -1,4 +1,4 @@
-import React from "react";
+
 import MouseFollower from "./components/MouseFollower";
 import Spotify from "./components/Spotify";
 import Work from "./pages/Work";
