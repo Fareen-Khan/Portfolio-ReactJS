@@ -69,11 +69,11 @@ export default function Work() {
                       ? `${months[job.end_date.getMonth()]} ${job.end_date.getFullYear()}`
                       : "Present"}
                   </div>
-                  <div className="space-y-2">
+                  <div className="space-y-2 text-gray-400">
                     <p className="font-medium text-white text-lg sm:text-xl lg:text-base">
                       {job.role} · {job.company}
                     </p>
-                    <p className="text-base sm:text-lg lg:text-sm text-gray-300">
+                    <p className="text-base sm:text-lg lg:text-sm">
                       {job.description}
                     </p>
                     {job.languages && (
