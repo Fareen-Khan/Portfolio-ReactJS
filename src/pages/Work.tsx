@@ -73,7 +73,7 @@ export default function Work() {
                     <p className="font-medium text-white text-lg sm:text-xl lg:text-base">
                       {job.role} · {job.company}
                     </p>
-                    <p className="text-base sm:text-lg lg:text-sm">
+                    <p className="text-base sm:text-lg lg:text-sm whitespace-pre-line">
                       {job.description}
                     </p>
                     {job.languages && (
