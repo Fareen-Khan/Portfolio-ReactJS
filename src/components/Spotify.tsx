@@ -22,11 +22,19 @@ const Spotify: React.FC = () => {
         "https://api.stats.fm/api/v1/users/mcstar123/streams/current"
       ).then((r) => r.json());
 
-      const dataTrack = musicResponse.item.isPlaying
-        ? musicResponse.item.track
-        : (await fetch(
+      const isPlaying = musicResponse.item?.isPlaying ?? false;
+      let dataTrack;
+
+      if (isPlaying) {
+        dataTrack = musicResponse.item.track;
+      } else {
+        const recentResponse = await fetch(
           "https://api.stats.fm/api/v1/users/mcstar123/streams/recent"
-        ).then((r) => r.json())).items[0].track;
+        ).then((r) => r.json());
+        dataTrack = recentResponse.items?.[0]?.track;
+      }
+
+      if (!dataTrack) return;
 
       setTrack({
         artist: dataTrack.artists[0].name,
@@ -34,7 +42,7 @@ const Spotify: React.FC = () => {
         img: dataTrack.albums[0].image,
         title: dataTrack.name,
         link: `https://open.spotify.com/track/${dataTrack.externalIds.spotify[0]}`,
-        playing: musicResponse.item.isPlaying,
+        playing: isPlaying,
       });
       setIsLoaded(true);
     } catch (error) {

@@ -56,19 +56,7 @@ export default function App() {
                     experiences.
                   </p>
                   <p>
-                    In my most recent role at the Government of Canada, I
-                    led feature development and performance optimizations on
-                    the WeatherCAN iOS app—now serving over a million users.
-                    I also contributed to the development of mobile
-                    applications for startups, improving both performance and
-                    user experience.
-                  </p>
-                  <p>
-                    When I can, I build side projects to learn new
-                    technologies and frameworks. Currently, I'm exploring AI
-                    to generate personalized workout plans—experimenting with
-                    how to merge AI and my development skills to create
-                    something both useful and beautiful.
+                    In my free time I love activities like hiking, volleyball, playing piano, listening to music, and most of all travelling. My latest adventure involves Portugal. I visited Lisbon, Algarve and the Azores. Sao Miguel is one of the most beautiful places on earth. Fun fact: I blacked out in the middle of the Atlantic due to heat stroke while whale watching 😋.
                   </p>
                 </CardContent>
               </Card>
